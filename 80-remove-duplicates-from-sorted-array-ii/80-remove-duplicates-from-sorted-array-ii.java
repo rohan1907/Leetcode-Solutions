@@ -1,21 +1,14 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int oIndex = 0, i=0;
+        if(nums.length==0)
+            return 0;
         
-        while(i<nums.length){
-            int sIndex = i;
-            
-            while(i<nums.length-1 && nums[i] == nums[i+1] ) i++;
-            
-            int length = i-sIndex+1;
-            int freq = Math.min(length,2);
-            
-            while(freq-- >0){
-                nums[oIndex] =nums[sIndex];
-                oIndex++;
-            }
-            i++;
+        int count=0;
+        for(int i=1;i<nums.length;i++){
+            if(nums[count] != nums[i] || (count-1<0 || nums[count-1] != nums[i])){
+                nums[++count] = nums[i];
+            } 
         }
-        return oIndex;
+        return count+1;
     }
 }
