@@ -1,27 +1,32 @@
 class Solution {
     public String removeKdigits(String num, int k) {
-        int n = num.length();
-        Stack<Character> st = new Stack<>();
-        
-        for(int i=0;i<n;i++){
+        //increasing stack, if meet num < peek, so pop it, we remove larger num in high digit
+        //use array to mock the stack, they are same to add num at end,and remove
+        //corner case
+        if(num.length() == 0 || num == null)
+            return num;
+        int len = num.length();
+         int remainingDigit = len -k;
+        //create char array mock stck
+        char[] stk = new char[len];
+        int top =0;  //last element
+        for(int i = 0;i<len;i++){
             char c = num.charAt(i);
-            while(!st.isEmpty() && k>0 && st.peek()>c){
-                st.pop();
+            while(top>0 && k> 0 && c < stk[top-1]){
+                //cur char < peek element
+                top--;  //remove top
                 k--;
             }
-            if(!st.isEmpty() || c!='0')
-                st.push(c);
+            stk[top++] = c;
         }
-        
-        while(!st.isEmpty() && k-- >0)
-            st.pop();
-        if(st.isEmpty())
-            return "0";
-        
-        StringBuilder str = new StringBuilder();
-        while(!st.isEmpty()){
-            str.append(st.pop().toString());
+        //find first elemtn != 0
+        int index =0;
+       
+        while(index < remainingDigit && stk[index] == '0'){
+            index++;
         }
-        return str.reverse().toString();
+        //if index == remianiD -> whole string all 0
+        return index == remainingDigit ? "0" : new String(stk,index,remainingDigit - index);
+        
     }
 }
