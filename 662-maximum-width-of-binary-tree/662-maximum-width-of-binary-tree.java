@@ -43,7 +43,7 @@ class Solution {
                 if(node.right!=null)
                     q.offer(new Pair(node.right, cur_id*2+2));
             }
-            ans = Math.max(ans, last-first+1);
+            ans = ans>last-first+1?ans:last-first+1;
         }
         return ans;
     }
