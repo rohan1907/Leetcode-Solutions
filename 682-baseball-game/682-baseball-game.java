@@ -1,6 +1,6 @@
 class Solution {
     public int calPoints(String[] ops) {
-        Deque<Integer> stack = new ArrayDeque();
+        Stack<Integer> stack = new Stack();
 
         for(String op : ops) {
             if (op.equals("+")) {
